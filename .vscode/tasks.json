@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Upload current file to Pico as main.py",
+      "type": "process",
+      "command": "mpremote",
+      "args": ["connect", "auto", "fs", "cp", "${file}", ":main.py", "+", "reset"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Run current file on Pico (no save)",
+      "type": "process",
+      "command": "mpremote",
+      "args": ["connect", "auto", "run", "${file}"],
+      "problemMatcher": []
+    }
+  ]
+}

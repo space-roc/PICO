@@ -1,0 +1,19 @@
+# CMake build output
+/build/
+/cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+
+# Python
+__pycache__/
+.venv/
+venv/
+*.py[cod]
+
+# Editor and operating system files
+.vscode/.browse.VC.db*
+.vscode/ipch/
+.DS_Store
+Thumbs.db

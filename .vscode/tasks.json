@@ -4,15 +4,16 @@
     {
       "label": "Upload current file to Pico as main.py",
       "type": "process",
-      "command": "mpremote",
-      "args": ["connect", "auto", "fs", "cp", "${file}", ":main.py", "+", "reset"],
+      "command": "python",
+      "args": ["-m", "mpremote", "connect", "auto", "fs", "cp", "${file}", ":main.py", "+", "reset"],
       "problemMatcher": []
     },
     {
       "label": "Run current file on Pico (no save)",
       "type": "process",
-      "command": "mpremote",
-      "args": ["connect", "auto", "run", "${file}"],
+      "command": "python",
+      "args": ["-m", "mpremote", "connect", "auto", "run", "${file}"],
+      "group": { "kind": "build", "isDefault": true },
       "problemMatcher": []
     }
   ]

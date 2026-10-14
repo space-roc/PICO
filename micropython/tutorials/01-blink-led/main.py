@@ -1,3 +1,4 @@
+
 # Tutorial 1: Blink the onboard LED
 #
 # This program flips the Pico's built-in LED on and off every half second
@@ -31,3 +32,7 @@ while True:
 
     # Wait 0.5 seconds. A smaller number makes the LED blink faster.
     sleep(0.5)
+    
+    if count >= 10:
+        led.value(False)
+        break

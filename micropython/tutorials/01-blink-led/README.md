@@ -44,7 +44,7 @@ while True:
    it with `Ctrl+C` in the terminal.
 3. When happy, run **Tasks: Run Task → Upload current file to Pico as main.py**.
    The Pico runs it automatically on every power-up.
-4. View output with `mpremote connect auto repl` (`Ctrl+]` to exit).
+4. View output with `python -m mpremote connect auto repl` (`Ctrl+]` to exit).
 
 ## Try it yourself
 

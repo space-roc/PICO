@@ -1,12 +1,14 @@
 # Raspberry Pi Pico workspace
 
 A VS Code workspace for learning and developing on the Raspberry Pi Pico. It
-contains three independent parts:
+contains four independent parts:
 
 - `src/` is a C/C++ starter project using the Raspberry Pi Pico SDK.
 - `micropython/tutorials/` has two beginner MicroPython tutorials.
 - `experiments/` has ten MicroPython experiments modelled on the topics of the
   Kitronik Inventor's Kit for Pico.
+- `projects/` has standalone projects for extra hardware, starting with the
+  [Waveshare Pico-GPS-L76B GPS module](projects/01-gps-l76b/README.md).
 
 ## Getting started
 
@@ -31,6 +33,10 @@ PICO/
 +-- experiments/
 |   +-- README.md                       Experiment index
 |   +-- 01-... to 10-.../               README.md + main.py each
++-- projects/
+|   +-- README.md                       Project index
+|   +-- 01-gps-l76b/                    README.md + main.py
+|   +-- 02-dice/                        README.md + main.py
 +-- .vscode/                            Recommended extensions and tasks
 ```
 
@@ -56,6 +62,10 @@ Install the MicroPython upload tool:
 ```powershell
 python -m pip install mpremote
 ```
+
+Run it as `python -m mpremote ...` (the VS Code tasks do this). The bare
+`mpremote` command only works if Python's `Scripts` folder is on your PATH,
+which is often not the case with the Microsoft Store version of Python.
 
 For MicroPython, download the UF2 firmware for your board from the
 [MicroPython Raspberry Pi Pico downloads](https://micropython.org/download/).
@@ -110,14 +120,21 @@ The experiment code is original and was written without access to Kitronik's
 guides, so the **pin numbers are assumptions**. Check the pin constants at the
 top of each `main.py` against your kit's guide before running.
 
+### Projects
+
+The [projects](projects/README.md) use extra hardware modules:
+
+1. [Waveshare Pico-GPS-L76B GPS module](projects/01-gps-l76b/README.md)
+2. [Random dice](projects/02-dice/README.md)
+
 ### Running a program
 
-Open a tutorial's or experiment's `main.py`, connect a Pico running MicroPython,
+Open a tutorial's, experiment's or project's `main.py`, connect a Pico running MicroPython,
 and run **Tasks: Run Task → Run current file on Pico (no save)** to test, or
 **Upload current file to Pico as main.py** to save it on the board. If a task
 can't connect, close anything else using the Pico's serial port.
 
-For an interactive REPL, run `mpremote connect auto repl` in the VS Code
+For an interactive REPL, run `python -m mpremote connect auto repl` in the VS Code
 terminal (`Ctrl+]` to exit).
 
 ## VS Code

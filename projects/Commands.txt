@@ -1,0 +1,7 @@
+python -m mpremote connect auto fs cp main.py :main.py
+
+python -m mpremote connect auto reset   
+
+
+python -m mpremote run main.py
+

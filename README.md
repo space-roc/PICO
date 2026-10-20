@@ -126,6 +126,10 @@ The [projects](projects/README.md) use extra hardware modules:
 
 1. [Waveshare Pico-GPS-L76B GPS module](projects/01-gps-l76b/README.md)
 2. [Random dice](projects/02-dice/README.md)
+3. [OLED temperature display](projects/03-oled-temperature/README.md)
+4. [Scrolling message](projects/04-message/README.md)
+5. [Two random cat faces](projects/05-cat-faces/README.md)
+6. [UTC clock on the Waveshare Pico-LCD-1.8](projects/06-utc-clock/README.md)
 
 ### Running a program
 

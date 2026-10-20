@@ -55,8 +55,8 @@ def show(oled, celsius):
     oled.fill(0)
     oled.text("Pico temperature", 0, 0)
     oled.hline(0, 12, WIDTH, 1)
-    oled.text("{:.1f} C".format(celsius), 0, 24)
-    oled.text("{:.1f} F".format(fahrenheit), 0, 40)
+    oled.text("{:.2f} C".format(celsius), 0, 24)
+    oled.text("{:.2f} F".format(fahrenheit), 0, 40)
     oled.show()
 
 

@@ -12,6 +12,9 @@ __pycache__/
 venv/
 *.py[cod]
 
+# Wi-Fi passwords
+wifi_config.py
+
 # Editor and operating system files
 .vscode/.browse.VC.db*
 .vscode/ipch/

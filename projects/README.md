@@ -1,6 +1,7 @@
 # Projects
 
-Standalone MicroPython projects using extra hardware modules.
+Standalone projects using extra hardware. Most are MicroPython projects for
+the Pico; project 13 targets the Waveshare ESP32-S3.
 
 | # | Project |
 |---|---------|
@@ -18,7 +19,12 @@ Standalone MicroPython projects using extra hardware modules.
 | 11 | [Live GPS map in the browser](11-gps-map/README.md) |
 | 11b | [GPS latitude and longitude on two OLEDs](11b-gps-oled/README.md) |
 | 12 | [MLX90640 thermal camera viewer](12-thermal-camera/README.md) |
+| 13 | [Clock on the Waveshare ESP32-S3 round display](13-esp32-s3-access/README.md) |
+| 13b | [Stand-alone thermal camera on the Waveshare Pico-LCD-1.8](13b-thermal-lcd/README.md) |
+| 14 | [Pumpkin eyes on round LCDs (Pico 2 W)](14-pumpkin-eyes-lcd/README.md) |
+| 14b | [Pumpkin eyes that jiggle when shaken (accelerometer)](14b-pumpkin-eyes-shake/README.md) |
 
-Open a project's `main.py` and use the VS Code tasks **Run current file on Pico
-(no save)** or **Upload current file to Pico as main.py**. Setup is in the
-[main README](../README.md).
+For a MicroPython project, open its `main.py` and use the VS Code tasks **Run
+current file on Pico (no save)** or **Upload current file to Pico as main.py**.
+Setup is in the [main README](../README.md). Project 13 uses Arduino on the
+ESP32-S3; its README has separate build and upload instructions.

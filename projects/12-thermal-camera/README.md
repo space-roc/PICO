@@ -126,7 +126,9 @@ python projects\12-thermal-camera\viewer.py --demo             # fake image, no 
   are less reliable.
 - `viewer.py` turns each half into temperatures, takes the surrounding sensor
   temperature into account, replaces any faulty pixels with the average of their
-  neighbours, and smooths the 32x24 grid up to the window size.
+  neighbours, and interpolates the 32x24 grid for a 2x-resolution display (768x576
+  at the default scale). This makes the image twice as wide and tall, but does
+  not add detail beyond what the sensor captured.
 - The sensor updates half its pixels (in a chessboard pattern) with each half
   frame, so moving objects can leave a checkerboard pattern. The viewer pulls
   each out-of-date pixel towards the average of its up-to-date neighbours, more

@@ -8,7 +8,9 @@ contains four independent parts:
 - `experiments/` has ten MicroPython experiments modelled on the topics of the
   Kitronik Inventor's Kit for Pico.
 - `projects/` has standalone projects for extra hardware, starting with the
-  [Waveshare Pico-GPS-L76B GPS module](projects/01-gps-l76b/README.md).
+  [Waveshare Pico-GPS-L76B GPS module](projects/01-gps-l76b/README.md). It
+  also includes a [clock for the Waveshare ESP32-S3 round display](projects/13-esp32-s3-access/README.md);
+  that board uses a different toolchain from the Pico.
 
 ## Getting started
 
@@ -130,6 +132,7 @@ The [projects](projects/README.md) use extra hardware modules:
 4. [Scrolling message](projects/04-message/README.md)
 5. [Two random cat faces](projects/05-cat-faces/README.md)
 6. [UTC clock on the Waveshare Pico-LCD-1.8](projects/06-utc-clock/README.md)
+7. [Clock on the Waveshare ESP32-S3 round display](projects/13-esp32-s3-access/README.md)
 
 ### Running a program
 

@@ -38,6 +38,7 @@ BAR_VERTICAL_MARGIN = 14
 BOX_HEIGHT = 56 # Box under the colour bar showing the current min and max
 FONT_PIXELS = -15 # Negative sizes are pixels, so the layout doesn't depend on display scaling
 RESTART_AFTER_S = 4 # Restart the Pico's program if it sends no camera data for this long
+SUPER_RESOLUTION = 2
 PALETTES = { # Colour stops from cold (0) to hot (1)
     "inferno": [(0.00, (0, 0, 4)), (0.15, (40, 11, 84)), (0.30, (101, 21, 110)),
                 (0.45, (159, 42, 99)), (0.60, (212, 72, 66)), (0.75, (245, 125, 21)),
@@ -197,6 +198,7 @@ class Viewer:
     def __init__(self, root, scale, mirror, low, high, palette=DEFAULT_PALETTE):
         self.root = root
         self.scale = scale
+        self.output_scale = scale * SUPER_RESOLUTION
         self.mirror = mirror
         self.palette_names = list(PALETTES)
         self.palette_name = palette
@@ -213,7 +215,7 @@ class Viewer:
         self.x_map = self.axis_map(WIDTH)
         self.y_map = self.axis_map(HEIGHT)
 
-        width, height = WIDTH * scale, HEIGHT * scale
+        width, height = WIDTH * self.output_scale, HEIGHT * self.output_scale
         self.canvas = tk.Canvas(root, width=width + BAR_PANEL_WIDTH, height=height,
                                 highlightthickness=0, bg="black")
         self.canvas.pack()
@@ -271,8 +273,8 @@ class Viewer:
 
     def axis_map(self, size):
         mapping = []
-        for out in range(size * self.scale):
-            source = min(max((out + 0.5) / self.scale - 0.5, 0), size - 1)
+        for out in range(size * self.output_scale):
+            source = min(max((out + 0.5) / self.output_scale - 0.5, 0), size - 1)
             low = int(source)
             mapping.append((low, min(low + 1, size - 1), source - low))
         return mapping
@@ -323,8 +325,8 @@ class Viewer:
         self.canvas.itemconfig(self.box_text, text="Max {:.1f} °C\nMin {:.1f} °C".format(
             max(temps), min(temps)))
 
-        # Smooth the 32x24 grid up to the window size: along each row first,
-        # then between rows.
+        # Render at twice the previous resolution, interpolating temperatures
+        # along each row first, then between rows.
         blended_rows = []
         for row in range(HEIGHT):
             values = temps[row * WIDTH:(row + 1) * WIDTH]
@@ -337,7 +339,7 @@ class Viewer:
             scanlines.append(b"".join(
                 self.palette[min(255, max(0, int((x + (y - x) * f - low) * factor)))]
                 for x, y in zip(top, bottom)))
-        width, height = WIDTH * self.scale, HEIGHT * self.scale
+        width, height = WIDTH * self.output_scale, HEIGHT * self.output_scale
         header = "P6 {} {} 255\n".format(width, height).encode()
         self.image = tk.PhotoImage(data=header + b"".join(scanlines), format="PPM")
         self.canvas.itemconfig(self.picture, image=self.image)
@@ -345,9 +347,11 @@ class Viewer:
         # Crosshair and temperature at the centre of the picture.
         cx, cy = width // 2, height // 2
         centre = temps[(HEIGHT // 2) * WIDTH + WIDTH // 2]
-        self.canvas.coords(self.cross[0], cx - 8, cy, cx + 8, cy)
-        self.canvas.coords(self.cross[1], cx, cy - 8, cx, cy + 8)
-        self.canvas.coords(self.centre_text, cx + 10, cy + 6)
+        cross_size = 8 * SUPER_RESOLUTION
+        self.canvas.coords(self.cross[0], cx - cross_size, cy, cx + cross_size, cy)
+        self.canvas.coords(self.cross[1], cx, cy - cross_size, cx, cy + cross_size)
+        self.canvas.coords(self.centre_text, cx + 10 * SUPER_RESOLUTION,
+                           cy + 6 * SUPER_RESOLUTION)
         self.canvas.itemconfig(self.centre_text, text="{:.1f} °C".format(centre))
 
         text = "Centre {:.1f} °C   Palette {}".format(centre, self.palette_name)
@@ -365,7 +369,7 @@ def main():
     parser = argparse.ArgumentParser(description="Live MLX90640 thermal camera viewer")
     parser.add_argument("--port", help="serial port of the Pico, for example COM4")
     parser.add_argument("--scale", type=int, default=12,
-                        help="window pixels per sensor pixel (default 12)")
+                        help="window pixels per upsampled pixel (default 12)")
     parser.add_argument("--no-mirror", action="store_true",
                         help="don't flip the picture left to right (flipped by default)")
     parser.add_argument("--min", type=float, default=DEFAULT_MIN_C, dest="min_c",
